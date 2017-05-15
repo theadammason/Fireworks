@@ -1,3 +1,5 @@
+// From a tutorial by Daniel Shiffman
+
 var fireworks = [];
 var gravity;
 
@@ -5,7 +7,6 @@ function setup() {
   createCanvas(400, 400);
   gravity = createVector(0, 0.2);
   background(0);
-
 }
 
 function draw() {
@@ -15,14 +16,13 @@ function draw() {
   }
 
 
-  for (var i = fireworks.length-1; i >= 0; i--) {
+  for (var i = fireworks.length - 1; i >= 0; i--) {
     fireworks[i].update();
     fireworks[i].show();
-    if (fireworks[i].done()){
+    if (fireworks[i].done()) {
       fireworks.splice(i, 1);
     }
   }
-
 }
 
 function Firework() {
@@ -43,33 +43,33 @@ function Firework() {
       }
     }
 
-    for (var i = this.particles.length-1; i >= 0; i--){
+    for (var i = this.particles.length - 1; i >= 0; i--) {
       this.particles[i].applyForce(gravity);
       this.particles[i].update();
-      if (this.particles[i].done()){
+      if (this.particles[i].done()) {
         this.particles.splice(i, 1);
       }
     }
   }
 
-  this.explode = function(){
-    for (var i = 0; i < 100; i++){
+  this.explode = function() {
+    for (var i = 0; i < 100; i++) {
       var p = new Particle(this.firework.pos.x, this.firework.pos.y, this.red, this.green, this.blue, false);
       this.particles.push(p);
     }
   }
 
   this.show = function() {
-    if (!this.exploded){
+    if (!this.exploded) {
       this.firework.show();
     }
-    for (var i = 0; i < this.particles.length; i++){
+    for (var i = 0; i < this.particles.length; i++) {
       this.particles[i].show();
     }
   }
 
-  this.done = function(){
-    if (this.exploded && this.particles.length === 0){
+  this.done = function() {
+    if (this.exploded && this.particles.length === 0) {
       return true;
     } else {
       return false;
@@ -84,7 +84,7 @@ function Particle(x, y, red, green, blue, seed) {
   this.blue = blue;
   this.pos = createVector(x, y);
   this.lifespan = 255;
-  if (seed){
+  if (seed) {
     this.vel = createVector(0, random(-13, -8));
   } else {
     this.vel = p5.Vector.random2D();
@@ -108,7 +108,7 @@ function Particle(x, y, red, green, blue, seed) {
   }
 
   this.done = function() {
-    if (this.lifespan<0) {
+    if (this.lifespan < 0) {
       return true;
     } else {
       return false;
@@ -116,7 +116,7 @@ function Particle(x, y, red, green, blue, seed) {
   }
 
   this.show = function() {
-    if (!seed){
+    if (!seed) {
       stroke(red, green, blue, this.lifespan);
       strokeWeight(2);
     } else {
